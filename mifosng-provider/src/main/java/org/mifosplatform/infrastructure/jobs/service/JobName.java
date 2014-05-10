@@ -16,7 +16,9 @@ public enum JobName {
     ADD_ACCRUAL_ENTRIES("Add Accrual Transactions"),
     UPDATE_NPA("Update Non Performing Assets"),
     UPDATE_DEPOSITS_ACCOUNT_MATURITY_DETAILS("Update Deposit Accounts Maturity details"),
-    TRANSFER_INTEREST_TO_SAVINGS("Transfer Interest To Savings");
+    TRANSFER_INTEREST_TO_SAVINGS("Transfer Interest To Savings"),
+    POLL_AND_SEND_PENDING_SMS("Send out SMS"),
+    UPDATE_SMS_DELIVERY_STATUS("Update SMS Delivery Status");
 
     private final String name;
 

@@ -18,8 +18,7 @@ import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.util.ClassUtils;
 
 /**
- * Parser to find method which is marked with CronTargetMethod annotation
- * 
+ * Parser to find method which is marked with @CronTarget method annotation.
  */
 public class CronMethodParser {
 
