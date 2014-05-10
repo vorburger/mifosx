@@ -11,6 +11,6 @@ public interface ScheduledSendSMSJobService {
 
 	void pollDBAndSendPendingSMSToGateway() throws JobExecutionException;
 
-	void pollDBAndUpdateDeliveryStatus() throws JobExecutionException;
+//	void pollDBAndUpdateDeliveryStatus() throws JobExecutionException;
 
 }
