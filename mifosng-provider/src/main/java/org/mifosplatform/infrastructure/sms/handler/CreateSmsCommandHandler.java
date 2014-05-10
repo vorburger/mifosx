@@ -26,7 +26,6 @@ public class CreateSmsCommandHandler implements NewCommandSourceHandler {
     @Transactional
     @Override
     public CommandProcessingResult processCommand(final JsonCommand command) {
-
         return this.writePlatformService.create(command);
     }
 }
