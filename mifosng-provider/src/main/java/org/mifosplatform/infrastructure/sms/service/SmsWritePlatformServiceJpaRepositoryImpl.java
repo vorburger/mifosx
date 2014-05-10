@@ -48,11 +48,9 @@ public class SmsWritePlatformServiceJpaRepositoryImpl implements SmsWritePlatfor
 
             final SmsMessage message = this.assembler.assembleFromJson(command);
 
-            // TODO: at this point we also want to fire off request using third
-            // party service to send SMS.
-            // TODO: decision to be made on wheter we 'wait' for response or use
-            // 'future/promise' to capture response and update the SmsMessage
-            // table
+            // At this point we do NOT synchronously fire off requests using any third party SmsGateway service to send SMS.
+            // That is the function of the ScheduledSendSMSJobService.
+            
             this.repository.save(message);
 
             return new CommandProcessingResultBuilder() //

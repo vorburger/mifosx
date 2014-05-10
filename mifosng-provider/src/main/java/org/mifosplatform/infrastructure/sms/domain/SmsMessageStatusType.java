@@ -2,11 +2,11 @@ package org.mifosplatform.infrastructure.sms.domain;
 
 public enum SmsMessageStatusType {
 
-    INVALID(0, "smsMessageStatusType.invalid"), //
-    PENDING(100, "smsMessageStatusType.pending"), //
-    SENT(200, "smsMessageStatusType.sent"), //
-    DELIVERED(300, "smsMessageStatusType.delivered"), //
-    FAILED(400, "smsMessageStatusType.failed");
+    INVALID(0, "smsMessageStatusType.invalid"),       // = ?
+    PENDING(100, "smsMessageStatusType.pending"),     // = waiting to be sent to a SmsGateway by the ScheduledSendSMSJobService
+    SENT(200, "smsMessageStatusType.sent"),           // = handed over to a SmsGateway by the ScheduledSendSMSJobService for further downstream delivery
+    DELIVERED(300, "smsMessageStatusType.delivered"), // = to the best of our knowledge, based on information from SmsGateway and what's behind it, has actually been delivered to intended end recipient
+    FAILED(400, "smsMessageStatusType.failed");       // = rejected by (one of possibly several) downstream stations. Retry may or may not work (depends on cause)
 
     private final Integer value;
     private final String code;

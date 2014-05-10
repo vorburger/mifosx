@@ -9,9 +9,7 @@ import org.mifosplatform.infrastructure.jobs.service.JobName;
 
 /**
  * Annotation that marks a method to be picked while scheduling a cron jobs.
- * 
  */
-
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CronTarget {
