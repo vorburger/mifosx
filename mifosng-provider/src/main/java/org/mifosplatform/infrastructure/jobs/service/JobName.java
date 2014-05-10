@@ -17,8 +17,8 @@ public enum JobName {
     UPDATE_NPA("Update Non Performing Assets"),
     UPDATE_DEPOSITS_ACCOUNT_MATURITY_DETAILS("Update Deposit Accounts Maturity details"),
     TRANSFER_INTEREST_TO_SAVINGS("Transfer Interest To Savings"),
-    POLL_AND_SEND_PENDING_SMS("Send out SMS"),
-    UPDATE_SMS_DELIVERY_STATUS("Update SMS Delivery Status");
+    POLL_AND_SEND_PENDING_SMS("Send out pending SMS");
+    // TODO? UPDATE_SMS_DELIVERY_STATUS("Update SMS Delivery Status");
 
     private final String name;
 
