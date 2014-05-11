@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ScheduledSendSMSJobServiceImpl implements ScheduledSendSMSJobService {
+
     private final static Logger logger = LoggerFactory.getLogger(ScheduledSendSMSJobServiceImpl.class);
 
     private final SmsMessageRepository repository;
@@ -36,12 +37,16 @@ public class ScheduledSendSMSJobServiceImpl implements ScheduledSendSMSJobServic
     @Transactional
     @CronTarget(jobName = JobName.POLL_AND_SEND_PENDING_SMS)
     public void pollDBAndSendPendingSMSToGateway() throws JobExecutionException {
-        // TODO change to logger.debug later..
-        logger.info("polling going to query for pending messages");
-        // Find chunks of messages in status PENDING,
-        Pageable pageable = new PageRequest(0, getNumberOfMessagesToProcessPerPoll());
+        long pendingMsgs = repository.countPending();
+        if (pendingMsgs == 0) return;
+
+        int maxMessagesToProcess = getMaxNumberOfMessagesToProcessPerPoll();
+        Pageable pageable = new PageRequest(0, maxMessagesToProcess);
         List<SmsMessage> pendingMessages = repository.findPending(pageable);
-        logger.info("found {} pending SMS messages", pendingMessages.size());
+        long messagesToProcess = pendingMessages.size(); // needed for logging
+
+        logger.info("found total of {} pending SMS messages, going to send {} message to gateway now (per-job limit is {})", pendingMsgs,
+                messagesToProcess, maxMessagesToProcess);
         for (SmsMessage smsMessage : pendingMessages) {
             logger.info("found msg with ID {} ", smsMessage.getId());
         }
@@ -62,12 +67,12 @@ public class ScheduledSendSMSJobServiceImpl implements ScheduledSendSMSJobServic
     /**
      * How many messages to process per job invocation poll? Too small value
      * means too slow sending. Too big value means transaction over too many
-     * messages, and in the edge case when the lights go out, will wrongly
-     * unnecessarily re-send more message out again.
+     * messages, and in the edge case when the lights go out while sending, will
+     * wrongly unnecessarily re-send more message out again.
      * 
      * @return number of messages
      */
-    public int getNumberOfMessagesToProcessPerPoll() {
+    public int getMaxNumberOfMessagesToProcessPerPoll() {
         return 100;
     }
 
