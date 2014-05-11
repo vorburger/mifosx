@@ -8,43 +8,49 @@ package org.mifosplatform.infrastructure.sms.gateways;
 /**
  * SMS Message concept as seen from the side of an SMS Gateway.
  * 
- * Similar to but probably not identical to the Mifos internal view in SmsData & SmsMessage class.
+ * Similar to but not identical to the internal view in SmsData & SmsMessage.
  */
 public class SmsGatewayMessage {
 
-	private final Long id;
-	private final String mobileNo;
+    private final Long id;
+    private final String mobileNo;
     private final String message;
-    
+
     /**
      * Constructor.
      * 
-     * @param id Mifos internal technical ID of message which a Gateway MAY use for further tracking - or which may be completely ignored
-     * @param mobileNo Phone number in international format (starting with country code) without spaces or brackets etc.
-     * @param message Text of actual message.  Does not support any sort templating (although some gateways may, or won't)
+     * @param id
+     *            Mifos internal technical ID of message which a Gateway MAY use
+     *            for further tracking - or which may be completely ignored
+     * @param mobileNo
+     *            Phone number in international format (starting with country
+     *            code) without spaces or brackets etc.
+     * @param message
+     *            Text of actual message. Does not support any sort templating
+     *            (although some gateways may, or won't)
      */
-	public SmsGatewayMessage(Long id, String mobileNo, String message) {
-		super();
-		this.id = id;
-		this.mobileNo = mobileNo;
-		this.message = message;
-	}
+    public SmsGatewayMessage(Long id, String mobileNo, String message) {
+        super();
+        this.id = id;
+        this.mobileNo = mobileNo;
+        this.message = message;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getMobileNo() {
-		return mobileNo;
-	}
+    public String getMobileNo() {
+        return mobileNo;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    public String getMessage() {
+        return message;
+    }
 
-	@Override
-	public String toString() {
-		return "SmsGatewayMessage [id=" + id + ", mobileNo=" + mobileNo + ", message=" + message + "]";
-	}
+    @Override
+    public String toString() {
+        return "SmsGatewayMessage [id=" + id + ", mobileNo=" + mobileNo + ", message=" + message + "]";
+    }
 
 }

@@ -5,6 +5,7 @@
  */
 package org.mifosplatform.infrastructure.sms.scheduler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mifosplatform.infrastructure.jobs.annotation.CronTarget;
@@ -12,6 +13,11 @@ import org.mifosplatform.infrastructure.jobs.exception.JobExecutionException;
 import org.mifosplatform.infrastructure.jobs.service.JobName;
 import org.mifosplatform.infrastructure.sms.domain.SmsMessage;
 import org.mifosplatform.infrastructure.sms.domain.SmsMessageRepository;
+import org.mifosplatform.infrastructure.sms.domain.SmsMessageStatusType;
+import org.mifosplatform.infrastructure.sms.gateways.SmsGateway;
+import org.mifosplatform.infrastructure.sms.gateways.SmsGatewayFactory;
+import org.mifosplatform.infrastructure.sms.gateways.SmsGatewayFactoryFromDBImpl;
+import org.mifosplatform.infrastructure.sms.gateways.SmsGatewayMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +30,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class ScheduledSendSMSJobServiceImpl implements ScheduledSendSMSJobService {
 
     private final static Logger logger = LoggerFactory.getLogger(ScheduledSendSMSJobServiceImpl.class);
+    private static final String LOG1 = "found total of {} pending SMS messages, and delivered {} messages to gateway now (per-job limit is {})";
 
     private final SmsMessageRepository repository;
+    private final SmsGatewayFactory gatewayFactory = new SmsGatewayFactoryFromDBImpl();
 
     @Autowired
-    public ScheduledSendSMSJobServiceImpl(SmsMessageRepository repository) {
+    public ScheduledSendSMSJobServiceImpl(SmsMessageRepository repository/*
+                                                                          * ,
+                                                                          * SmsGatewayFactory
+                                                                          * gatewayFactory
+                                                                          */) {
         super();
         this.repository = repository;
+        // this.gatewayFactory = gatewayFactory;
     }
 
     @Override
@@ -40,18 +53,23 @@ public class ScheduledSendSMSJobServiceImpl implements ScheduledSendSMSJobServic
         long pendingMsgs = repository.countPending();
         if (pendingMsgs == 0) return;
 
+        SmsGateway gateway = gatewayFactory.getObject();
+
         int maxMessagesToProcess = getMaxNumberOfMessagesToProcessPerPoll();
         Pageable pageable = new PageRequest(0, maxMessagesToProcess);
         List<SmsMessage> pendingMessages = repository.findPending(pageable);
-        long messagesToProcess = pendingMessages.size(); // needed for logging
+        int messagesToProcess = pendingMessages.size(); // needed for logging
 
-        logger.info("found total of {} pending SMS messages, going to send {} message to gateway now (per-job limit is {})", pendingMsgs,
-                messagesToProcess, maxMessagesToProcess);
-        for (SmsMessage smsMessage : pendingMessages) {
-            logger.info("found msg with ID {} ", smsMessage.getId());
+        List<SmsGatewayMessage> gatewayMessages = new ArrayList<SmsGatewayMessage>(messagesToProcess);
+        for (SmsMessage dbMessage : pendingMessages) {
+            SmsGatewayMessage gatewayMessage = new SmsGatewayMessage(dbMessage.getId(), dbMessage.getMobileNo(), dbMessage.getMessage());
+            gatewayMessages.add(gatewayMessage);
+            dbMessage.setStatus(SmsMessageStatusType.DELIVERED);
         }
-        // and push them into SmsGateway.send()
-        // and set their status to SENT
+        gateway.send(gatewayMessages);
+        logger.info(LOG1, pendingMsgs, messagesToProcess, maxMessagesToProcess);
+
+        // NOTE we do NOT have do repository.save()
     }
 
     // @Override
