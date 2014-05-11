@@ -4,6 +4,8 @@ public interface JobRegisterService {
 
     public void executeJob(Long jobId);
 
+    public void executeJob(JobName job);
+
     public void rescheduleJob(Long jobId);
 
     public void pauseScheduler();

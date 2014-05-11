@@ -30,13 +30,15 @@ public class SmsWritePlatformServiceJpaRepositoryImpl implements SmsWritePlatfor
     private final SmsMessageAssembler assembler;
     private final SmsMessageRepository repository;
     private final SmsDataValidator validator;
+    private final SmsSendPlatformService sender;
 
     @Autowired
     public SmsWritePlatformServiceJpaRepositoryImpl(final SmsMessageAssembler assembler, final SmsMessageRepository repository,
-            final SmsDataValidator validator) {
+            final SmsDataValidator validator, final SmsSendPlatformService sender) {
         this.assembler = assembler;
         this.repository = repository;
         this.validator = validator;
+        this.sender = sender;
     }
 
     @Transactional
@@ -48,14 +50,11 @@ public class SmsWritePlatformServiceJpaRepositoryImpl implements SmsWritePlatfor
 
             final SmsMessage message = this.assembler.assembleFromJson(command);
 
-            // At this point we do NOT synchronously fire off requests using any third party SmsGateway service to send SMS.
-            // That is the function of the ScheduledSendSMSJobService.
+            Long newMessageId = this.sender.sendOneSMSImmediately(message);
             
-            this.repository.save(message);
-
             return new CommandProcessingResultBuilder() //
                     .withCommandId(command.commandId()) //
-                    .withEntityId(message.getId()) //
+                    .withEntityId(newMessageId) //
                     .build();
         } catch (final DataIntegrityViolationException dve) {
             handleDataIntegrityIssues(command, dve);

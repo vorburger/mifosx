@@ -30,7 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ScheduledSendSMSJobServiceImpl implements ScheduledSendSMSJobService {
 
     private final static Logger logger = LoggerFactory.getLogger(ScheduledSendSMSJobServiceImpl.class);
-    private static final String LOG1 = "found total of {} pending SMS messages, and delivered {} messages to gateway now (per-job limit is {})";
+    private static final String LOG1 = "found total of {} pending SMS messages, and delivered {} messages to gateway (per-job limit is {})";
 
     private final SmsMessageRepository repository;
     private final SmsGatewayFactory gatewayFactory = new SmsGatewayFactoryFromDBImpl();

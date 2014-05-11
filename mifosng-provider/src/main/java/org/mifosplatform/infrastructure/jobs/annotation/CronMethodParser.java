@@ -66,7 +66,7 @@ public class CronMethodParser {
                         final JobName attributeValue = (JobName) attributes.get(attributeName);
                         final String className = metadata.getDeclaringClassName();
                         final String[] mapVal = { className, metadata.getMethodName() };
-                        targetMethosMap.put(attributeValue.toString(), mapVal);
+                        targetMethosMap.put(attributeValue.nameInDatabase(), mapVal);
                     }
                 }
             }

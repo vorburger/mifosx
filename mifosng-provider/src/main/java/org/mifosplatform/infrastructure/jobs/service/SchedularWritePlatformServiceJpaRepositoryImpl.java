@@ -79,6 +79,11 @@ public class SchedularWritePlatformServiceJpaRepositoryImpl implements Schedular
     }
 
     @Override
+    public ScheduledJobDetail findByName(String name) {
+        return this.scheduledJobDetailsRepository.findByJobName(name);
+    }
+
+    @Override
     @Transactional
     public void updateSchedulerDetail(final SchedulerDetail schedulerDetail) {
         this.schedulerDetailRepository.save(schedulerDetail);
