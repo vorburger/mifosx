@@ -78,4 +78,33 @@ public class SmsMessage extends AbstractPersistable<Long> {
 
         return actualChanges;
     }
+
+    public Integer getStatusType() {
+        return this.statusType;
+    }
+
+    public void setStatus(SmsMessageStatusType status) {
+        this.statusType = status.getValue();
+    }
+
+    public Group getGroup() {
+        return this.group;
+    }
+
+    public Client getClient() {
+        return this.client;
+    }
+
+    public Staff getStaff() {
+        return this.staff;
+    }
+
+    public String getMobileNo() {
+        return this.mobileNo;
+    }
+
+    public String getMessage() {
+        return this.message;
+    }
+
 }
