@@ -14,6 +14,8 @@ public interface SchedularWritePlatformService {
 
     public ScheduledJobDetail findByJobKey(String triggerKey);
 
+    public ScheduledJobDetail findByName(String name);
+
     public void saveOrUpdate(ScheduledJobDetail scheduledJobDetails);
 
     public void saveOrUpdate(ScheduledJobDetail scheduledJobDetails, ScheduledJobRunHistory scheduledJobRunHistory);

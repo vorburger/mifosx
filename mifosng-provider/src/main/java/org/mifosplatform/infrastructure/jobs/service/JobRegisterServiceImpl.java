@@ -211,6 +211,13 @@ public class JobRegisterServiceImpl implements JobRegisterService {
     }
 
     @Override
+    public void executeJob(JobName job) {
+        final ScheduledJobDetail scheduledJobDetail = this.schedularWritePlatformService.findByName(job.nameInDatabase());
+        if (scheduledJobDetail == null) { throw new JobNotFoundException(job.name()); }
+        executeJob(scheduledJobDetail, null);
+    }
+
+    @Override
     public boolean isSchedulerRunning() {
         return !this.schedularWritePlatformService.retriveSchedulerDetail().isSuspended();
     }

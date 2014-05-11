@@ -14,7 +14,9 @@ import org.mifosplatform.infrastructure.sms.domain.SmsMessageStatusType;
  * into (or from) the world.
  * 
  * This is NOT intended to be used by any "functional" code inside Mifos, other
- * than the ScheduledSendSMSJobService.
+ * than the ScheduledSendSMSJobService. If you want to send an SMS from code
+ * running inside Mifos, use the SmsSendPlatformService. (And the REST API
+ * sitting on top of that if you are running out-of-process, e.g. from the UI.)
  */
 public interface SmsGateway {
 

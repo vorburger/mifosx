@@ -20,14 +20,18 @@ public enum JobName {
     POLL_AND_SEND_PENDING_SMS("Send out pending SMS");
     // TODO? UPDATE_SMS_DELIVERY_STATUS("Update SMS Delivery Status");
 
-    private final String name;
+    private final String nameInDatabase;
 
-    private JobName(final String name) {
-        this.name = name;
+    private JobName(final String nameInDatabase) {
+        this.nameInDatabase = nameInDatabase;
+    }
+
+    public String nameInDatabase() {
+        return this.nameInDatabase;
     }
 
     @Override
     public String toString() {
-        return this.name;
+        return ordinal() + ". " + name() + " " + this.nameInDatabase;
     }
 }
