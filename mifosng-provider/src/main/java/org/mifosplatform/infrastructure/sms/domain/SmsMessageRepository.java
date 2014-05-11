@@ -14,8 +14,12 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface SmsMessageRepository extends JpaRepository<SmsMessage, Long>, JpaSpecificationExecutor<SmsMessage> {
 
-    // TODO how to? @Query("from SmsMessage msg where msg.statusType = " +
-    // SmsMessageStatusType.PENDING.getValue() + " order by msg.id")
+    // TODO how to use SmsMessageStatusType.PENDING.getValue() instead of
+    // hard-coded '100' here?
+
+    @Query("select count(msg) from SmsMessage msg where msg.statusType = 100")
+    long countPending();
+
     @Query("from SmsMessage msg where msg.statusType = 100 order by msg.id")
     List<SmsMessage> findPending(Pageable pageable);
 
