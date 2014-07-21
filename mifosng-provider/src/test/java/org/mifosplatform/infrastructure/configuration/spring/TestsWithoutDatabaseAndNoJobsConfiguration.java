@@ -15,9 +15,7 @@ import org.springframework.context.annotation.ImportResource;
  * perfectly sufficient (and faster to run such tests).
  */
 @Configuration
-// We do NOT want the testContext.xml here, but the real one!
-@ImportResource("classpath*:META-INF/spring/appContext.xml")
-public class TestsWithoutDatabaseAndNoJobsConfiguration {
+public class TestsWithoutDatabaseAndNoJobsConfiguration extends TestSpringConfiguration {
 
     /**
      * Override TenantDatabaseUpgradeService binding, because the real
