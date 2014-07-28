@@ -2,22 +2,29 @@ package org.mifosplatform;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
+@EnableConfigurationProperties(DataSourceProperties.class)
 public class DataSourceConfiguration {
 
+	// TODO I'd like this to be able to ALTERNATIVELY be configured to do classic JNDI look-up as well, for non-Spring Boot as-before WAR deployments
+	// Does DataSourceProperties (extends PoolProperties) setDataSourceJNDI() allow this?
+	
+	public static final String CONFIGURATION_PREFIX = "mifos.datasource";
+
+	@Autowired
+	private DataSourceProperties properties;
+
 	@Bean
+	@ConfigurationProperties(prefix = DataSourceConfiguration.CONFIGURATION_PREFIX)
 	public DataSource tenantDataSourceJndi() {
-		// TODO use tomcat-jdbc instead here!
-		DriverManagerDataSource dmds = new DriverManagerDataSource(); // SimpleDriverDataSource ?
-		dmds.setDriverClassName(com.mysql.jdbc.Driver.class.getName());
-		dmds.setUrl("jdbc:mysql://localhost:3306/mifosplatform-tenants");
-		dmds.setUsername("root");
-		dmds.setPassword("mysql");
-		return dmds;
+		org.apache.tomcat.jdbc.pool.DataSource ds = new org.apache.tomcat.jdbc.pool.DataSource(properties);
+		return ds;
 	}
 
 
