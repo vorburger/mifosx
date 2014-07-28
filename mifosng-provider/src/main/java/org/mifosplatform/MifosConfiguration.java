@@ -11,5 +11,4 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource("classpath*:META-INF/spring/appContext.xml")
 @EnableAutoConfiguration(exclude=DataSourceAutoConfiguration.class)
 public class MifosConfiguration {
-
 }
