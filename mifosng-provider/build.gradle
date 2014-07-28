@@ -11,13 +11,15 @@ buildscript {
   dependencies {
      classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:1.0',
                'nl.javadude.gradle.plugins:license-gradle-plugin:0.11.0',
-               'org.zeroturnaround:gradle-jrebel-plugin:1.1.2'
+               'org.zeroturnaround:gradle-jrebel-plugin:1.1.2',
+               'org.springframework.boot:spring-boot-gradle-plugin:1.1.4.RELEASE'
   }
 }
 
 apply plugin: 'rebel'
 apply plugin: 'license'
 apply plugin: 'war'
+apply plugin: 'spring-boot'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'tomcat'
