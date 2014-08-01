@@ -3,7 +3,7 @@ package org.mifosplatform;
 import org.springframework.boot.SpringApplication;
 
 /**
- * Mifos main() launching embedded HTTP server.
+ * Mifos main() launching embedded HTTP server (using Spring Boot).
  *
  * You can easily launch this via Debug as Java Application in your IDE -
  * without needing command line Gradle stuff, no need to build and deploya WAR,
