@@ -15,8 +15,8 @@ import ch.vorburger.mariadb4j.MariaDB4jService;
 public class MariaDB4jDataSourceConfiguration extends DataSourceConfiguration {
 
 	@Bean
-	public MariaDB4jMifosSetupService mariaDB4jMifosSetupService() {
-		return new MariaDB4jMifosSetupService(getMariaDB4jService().getDB());
+	public MariaDB4jSetupService mariaDB4jSetupService() {
+		return new MariaDB4jSetupService(getMariaDB4jService().getDB());
 	}
 
 	@Bean
@@ -28,7 +28,7 @@ public class MariaDB4jDataSourceConfiguration extends DataSourceConfiguration {
 	@Override
 	protected PoolConfiguration getProperties() {
 		PoolConfiguration p = super.getProperties();
-		String tenantDB = mariaDB4jMifosSetupService().getTenantDBName();
+		String tenantDB = mariaDB4jSetupService().getTenantDBName();
 		p.setUrl(getMariaDB4jService().getURL(tenantDB ));
 		return p;
 	}

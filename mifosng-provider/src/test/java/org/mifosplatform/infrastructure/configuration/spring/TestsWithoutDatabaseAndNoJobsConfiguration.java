@@ -32,8 +32,7 @@ public class TestsWithoutDatabaseAndNoJobsConfiguration {
      */
     @Bean
     public TenantDatabaseUpgradeService tenantDatabaseUpgradeService() {
-        return new TenantDatabaseUpgradeService(null) {
-
+        return new TenantDatabaseUpgradeService(null, null) {
             @Override
             public void upgradeAllTenants() {
                 // NOOP
