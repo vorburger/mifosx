@@ -17,9 +17,6 @@ public class MariaDB4jSetupService {
 
 	private DB db;
 
-//    @Autowired
-//    public JdbcTenantDetailsService(@Qualifier("tenantDataSourceJndi") final DataSource dataSource) {
-
 	@Autowired
 	public MariaDB4jSetupService(DB db) {
 		this.db = db;
