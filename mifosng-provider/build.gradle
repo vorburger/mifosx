@@ -189,9 +189,6 @@ task deployPentahoReports() {
 
 war {
     it.dependsOn deployPentahoReports
-    from ('../mifosng-db/migrations/core_db') {
-    	into "WEB-INF/classes/sql"
-    }
 }
 
 license {
