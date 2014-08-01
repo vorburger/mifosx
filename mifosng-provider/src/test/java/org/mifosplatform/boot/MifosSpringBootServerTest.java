@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mifosplatform.MifosConfiguration;
 import org.mifosplatform.MifosServerApplication;
+import org.mifosplatform.MifosWithDBConfiguration;
+import org.mifosplatform.MifosWithDBConfigurationCausingSpringBootNPE;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.OutputCapture;
@@ -26,7 +28,7 @@ import com.google.common.base.Preconditions;
  * @see MifosServerApplication
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = MifosConfiguration.class)
+@SpringApplicationConfiguration(classes = MifosWithDBConfigurationCausingSpringBootNPE.class)
 @WebAppConfiguration
 @IntegrationTest({ "server.port=0", "management.port=0" })
 public class MifosSpringBootServerTest {
