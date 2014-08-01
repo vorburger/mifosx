@@ -13,21 +13,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ch.vorburger.exec.ManagedProcessException;
 import ch.vorburger.mariadb4j.DB;
 
-public class MariaDB4jMifosSetupService {
+public class MariaDB4jSetupService {
 
 	private DB db;
 
+//    @Autowired
+//    public JdbcTenantDetailsService(@Qualifier("tenantDataSourceJndi") final DataSource dataSource) {
+
 	@Autowired
-	public MariaDB4jMifosSetupService(DB db) {
+	public MariaDB4jSetupService(DB db) {
 		this.db = db;
 	}
 
 	@PostConstruct
-	protected void setUpMifosDB() throws ManagedProcessException {
+	protected void setUpMifosDBs() throws ManagedProcessException {
 		db.createDB(getTenantDBName());
-		// TODO init
 		db.createDB("mifostenant-default");
-		// TODO init
+		// Note that we don't need to initialize the DBs, because
+		// the TenantDatabaseUpgradeService will do this in just a moment.
 	}
 
 	public String getTenantDBName() {
