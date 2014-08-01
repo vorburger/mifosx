@@ -10,6 +10,11 @@ import ch.vorburger.mariadb4j.MariaDB4jService;
 public class MariaDB4jDataSourceConfiguration extends DataSourceConfiguration {
 
 	@Bean
+	public MariaDB4jMifosSetupService mariaDB4jMifosSetupService() {
+		return new MariaDB4jMifosSetupService(getMariaDB4jService().getDB());
+	}
+
+	@Bean
 	public MariaDB4jService getMariaDB4jService() {
 		MariaDB4jService bean = new MariaDB4jService();
 		return bean;
@@ -18,7 +23,8 @@ public class MariaDB4jDataSourceConfiguration extends DataSourceConfiguration {
 	@Override
 	protected PoolConfiguration getProperties() {
 		PoolConfiguration p = super.getProperties();
-		p.setUrl(getMariaDB4jService().getURL("test")); // TODO not test but *tenant* ? what 'bout the other one??
+		String tenantDB = mariaDB4jMifosSetupService().getTenantDBName();
+		p.setUrl(getMariaDB4jService().getURL(tenantDB ));
 		return p;
 	}
 
