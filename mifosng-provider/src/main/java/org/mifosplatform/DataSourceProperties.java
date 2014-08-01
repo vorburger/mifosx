@@ -1,3 +1,8 @@
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package org.mifosplatform;
 
 import javax.validation.constraints.NotNull;
@@ -20,8 +25,39 @@ public class DataSourceProperties extends PoolProperties {
 
 		// default to save us from re-specifying this; note that it can still be overridden
 		setDriverClassName(com.mysql.jdbc.Driver.class.getName());
-		setUsername("root");
-		setPassword("mysql");
+
+		setUsernameAndPassword();
+
+		setMifosDefaults();
+	}
+
+	protected void setUsernameAndPassword() {
+		if (getUsername() == null)
+			setUsername("root");
+		if (getPassword() == null)
+			setPassword("mysql");
+	}
+
+	/**
+	 * as per (some of..) INSTALL.md
+	 * and org.mifosplatform.infrastructure.core.service.TomcatJdbcDataSourcePerTenantService.createNewDataSourceFor(MifosPlatformTenant)
+	 */
+	protected void setMifosDefaults() {
+		setInitialSize(3);
+		// setMaxIdle(6); -- strange, why?
+		// setMinIdle(3); -- JavaDoc says default is initialSize.. so shouldn't be needed
+		if (getValidationQuery() == null)
+			setValidationQuery("SELECT 1");
+		setTestOnBorrow(true);
+		setTestOnReturn(true);
+		setTestWhileIdle(true);
+		setTimeBetweenEvictionRunsMillis(30000);
+		setTimeBetweenEvictionRunsMillis(60000);
+		setLogAbandoned(true);
+		setSuspectTimeout(60);
+
+		setJdbcInterceptors("org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;"
+                + "org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer;org.apache.tomcat.jdbc.pool.interceptor.SlowQueryReport");
 	}
 
 	@Override
