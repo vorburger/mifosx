@@ -4,7 +4,6 @@ import javax.sql.DataSource;
 
 import org.mifosplatform.infrastructure.core.service.TenantDatabaseUpgradeService;
 import org.mifosplatform.infrastructure.jobs.service.JobRegisterService;
-import org.mockito.Answers;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
