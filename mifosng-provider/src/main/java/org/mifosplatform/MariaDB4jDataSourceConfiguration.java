@@ -29,7 +29,7 @@ public class MariaDB4jDataSourceConfiguration extends DataSourceConfiguration {
 	protected PoolConfiguration getProperties() {
 		PoolConfiguration p = super.getProperties();
 		String tenantDB = mariaDB4jSetupService().getTenantDBName();
-		p.setUrl(getMariaDB4jService().getURL(tenantDB ));
+		p.setUrl(getMariaDB4jService().getURL(tenantDB));
 		return p;
 	}
 
