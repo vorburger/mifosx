@@ -41,6 +41,6 @@ public class MifosSpringBootServerTest {
 
 	protected String getApiUrl(String trailingApiUrl) {
 		Preconditions.checkArgument(trailingApiUrl.startsWith("/"), "trailingApiUrl must start with slash: " + trailingApiUrl);
-		return "http://localhost:" + httpPort + "/api/v1" + trailingApiUrl;
+		return "http://localhost:" + httpPort + "/api/v1" + trailingApiUrl + "?tenantIdentifier=default";
 	}
 }
