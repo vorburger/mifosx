@@ -6,6 +6,7 @@
 package org.mifosplatform;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * Mifos main() launching embedded HTTP server (using Spring Boot).
@@ -19,7 +20,8 @@ import org.springframework.boot.SpringApplication;
 public class MifosServerApplication {
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(MifosConfiguration.class, args);
+        ConfigurableApplicationContext ctx = SpringApplication.run(MifosConfiguration.class, args);
+        ServerApplicationExit.waitForKeyPressToCleanlyExit(ctx);
     }
 
 }
