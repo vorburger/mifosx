@@ -18,8 +18,8 @@ import org.springframework.boot.SpringApplication;
  */
 public class MifosServerApplication {
 
-	public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
         SpringApplication.run(MifosConfiguration.class, args);
     }
-	
+
 }
