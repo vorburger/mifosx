@@ -16,6 +16,6 @@ import org.springframework.context.annotation.ImportResource;
 @Configuration
 @Import({ WebConfiguration.class, DataSourceConfiguration.class, TomcatSSLConfiguration.class })
 @ImportResource("classpath*:META-INF/spring/appContext.xml")
-@EnableAutoConfiguration(exclude={ DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class })
-public class MifosConfiguration {
-}
+@EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class,
+        DataSourceTransactionManagerAutoConfiguration.class })
+public class MifosConfiguration {}

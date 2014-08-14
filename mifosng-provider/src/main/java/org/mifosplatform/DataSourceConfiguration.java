@@ -18,24 +18,27 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(DataSourceProperties.class)
 public class DataSourceConfiguration {
 
-	// TODO We'd like this to be able to ALTERNATIVELY be configured to do classic JNDI look-up as well, for non-Spring Boot as-before WAR deployments
-	// Does DataSourceProperties (extends PoolProperties) setDataSourceJNDI() allow this?
-	// https://github.com/spring-projects/spring-boot/issues/989
+    // TODO We'd like this to be able to ALTERNATIVELY be configured to do
+    // classic JNDI look-up as well, for non-Spring Boot as-before WAR
+    // deployments
+    // Does DataSourceProperties (extends PoolProperties) setDataSourceJNDI()
+    // allow this?
+    // https://github.com/spring-projects/spring-boot/issues/989
 
-	public static final String CONFIGURATION_PREFIX = "mifos.datasource";
+    public static final String CONFIGURATION_PREFIX = "mifos.datasource";
 
-	@Autowired
-	private DataSourceProperties properties;
+    @Autowired
+    private DataSourceProperties properties;
 
-	@Bean
-	@ConfigurationProperties(prefix = DataSourceConfiguration.CONFIGURATION_PREFIX)
-	public DataSource tenantDataSourceJndi() {
-		org.apache.tomcat.jdbc.pool.DataSource ds = new org.apache.tomcat.jdbc.pool.DataSource(getProperties());
-		return ds;
-	}
+    @Bean
+    @ConfigurationProperties(prefix = DataSourceConfiguration.CONFIGURATION_PREFIX)
+    public DataSource tenantDataSourceJndi() {
+        org.apache.tomcat.jdbc.pool.DataSource ds = new org.apache.tomcat.jdbc.pool.DataSource(getProperties());
+        return ds;
+    }
 
-	protected PoolConfiguration getProperties() {
-		return properties;
-	}
+    protected PoolConfiguration getProperties() {
+        return properties;
+    }
 
 }
