@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 
 import org.springframework.context.ConfigurableApplicationContext;
 
-
 public abstract class ServerApplicationExit {
 
     private ServerApplicationExit() {}
