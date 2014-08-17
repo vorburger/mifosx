@@ -28,19 +28,19 @@ import com.google.common.base.Preconditions;
 @IntegrationTest({ "server.port=0", "management.port=0" })
 public class MifosSpringBootServerTest {
 
-	@Value("${local.server.port}")
-	protected int httpPort;
-	
-	protected RestTemplate template = new TestRestTemplate();
+    @Value("${local.server.port}")
+    protected int httpPort;
 
-	@Test
-	public void hasMifosPlatformStarted() {
-		String response = template.getForObject(getApiUrl("/users"), String.class);
-		assertThat(response, containsString("\"username\": \"mifos\""));
-	}
+    protected RestTemplate template = new TestRestTemplate();
 
-	protected String getApiUrl(String trailingApiUrl) {
-		Preconditions.checkArgument(trailingApiUrl.startsWith("/"), "trailingApiUrl must start with slash: " + trailingApiUrl);
-		return "http://localhost:" + httpPort + "/api/v1" + trailingApiUrl + "?tenantIdentifier=default";
-	}
+    @Test
+    public void hasMifosPlatformStarted() {
+        String response = template.getForObject(getApiUrl("/users"), String.class);
+        assertThat(response, containsString("\"username\": \"mifos\""));
+    }
+
+    protected String getApiUrl(String trailingApiUrl) {
+        Preconditions.checkArgument(trailingApiUrl.startsWith("/"), "trailingApiUrl must start with slash: " + trailingApiUrl);
+        return "http://localhost:" + httpPort + "/api/v1" + trailingApiUrl + "?tenantIdentifier=default";
+    }
 }
