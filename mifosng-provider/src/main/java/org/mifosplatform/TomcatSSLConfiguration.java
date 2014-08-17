@@ -20,8 +20,13 @@ public class TomcatSSLConfiguration {
     @Bean
     public EmbeddedServletContainerFactory servletContainer() {
         TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory();
+        tomcat.setContextPath(getContextPath());
         tomcat.addAdditionalTomcatConnectors(createSslConnector());
         return tomcat;
+    }
+
+    private String getContextPath() {
+        return "/mifosng-provider";
     }
 
     protected Connector createSslConnector() {
