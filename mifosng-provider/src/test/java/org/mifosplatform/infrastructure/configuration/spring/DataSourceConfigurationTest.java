@@ -10,11 +10,12 @@ import org.junit.runner.RunWith;
 import org.mifosplatform.MariaDB4jDataSourceConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = MariaDB4jDataSourceConfiguration.class)
+@SpringApplicationConfiguration(classes = MariaDB4jDataSourceConfiguration.class)
 public class DataSourceConfigurationTest {
 
     @Autowired
