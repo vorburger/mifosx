@@ -9,13 +9,22 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.event.ContextStoppedEvent;
 
 @Configuration
 @Import({ WebConfiguration.class, DataSourceConfiguration.class, TomcatSSLConfiguration.class })
 @ImportResource("classpath*:META-INF/spring/appContext.xml")
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class,
         DataSourceTransactionManagerAutoConfiguration.class })
-public class MifosConfiguration {}
+public class MifosConfiguration {	
+	
+	@Bean
+	protected ApplicationListener<ContextStoppedEvent> contextListener() {
+		return new MifosApplicationListener();
+	}		
+}

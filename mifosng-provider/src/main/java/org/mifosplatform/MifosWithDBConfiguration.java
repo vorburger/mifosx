@@ -9,9 +9,12 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.event.ContextStoppedEvent;
 
 @Configuration
 @Import({ WebConfiguration.class, MariaDB4jDataSourceConfiguration.class, TomcatSSLConfiguration.class })
@@ -21,4 +24,10 @@ import org.springframework.context.annotation.ImportResource;
 // NOTE: Due to https://github.com/spring-projects/spring-boot/issues/1328, we
 // must repeat above, and cannot just extends MifosConfiguration and "override"
 // only @Import(MariaDB4jDataSourceConfiguration.class)
-public class MifosWithDBConfiguration {}
+public class MifosWithDBConfiguration {
+	
+	@Bean
+	protected ApplicationListener<ContextStoppedEvent> contextListener() {
+		return new MifosApplicationListener();
+	}
+}

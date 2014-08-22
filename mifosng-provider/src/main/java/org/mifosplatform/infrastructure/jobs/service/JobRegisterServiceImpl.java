@@ -245,6 +245,17 @@ public class JobRegisterServiceImpl implements JobRegisterService {
         }
         scheduledJobDetails.updateCurrentlyRunningStatus(false);
     }
+    
+    @Override
+	public void stopAllSchedulers() {
+    	for(Scheduler scheduler: this.schedulers.values()) {
+    		try {
+                scheduler.shutdown();
+            } catch (final SchedulerException e) {
+                logger.error(e.getMessage(), e);
+            }
+    	}        
+    }
 
     private Scheduler getScheduler(final ScheduledJobDetail scheduledJobDetail) throws Exception {
         final String schedulername = getSchedulerName(scheduledJobDetail);

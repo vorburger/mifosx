@@ -13,5 +13,7 @@ public interface JobRegisterService {
     public boolean isSchedulerRunning();
 
     public void stopScheduler(String name);
+    
+    public void stopAllSchedulers();
 
 }
