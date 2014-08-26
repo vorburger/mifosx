@@ -171,7 +171,7 @@ task dist(type:Zip){
         include '*.sql'
         into('database')
     }
-    from('../mifosng-db/migrations') {
+    from('src/main/resources/sql/migrations') {
         fileMode = 0755
         include '**/*'
         into('database/migrations')
