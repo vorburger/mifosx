@@ -27,8 +27,10 @@ public class MariaDB4jDataSourceConfiguration extends DataSourceConfiguration {
 
     @Bean
     public MariaDB4jSpringService mariaDB4j() {
-        MariaDB4jSpringService bean = new MariaDB4jSpringService();
-        return bean;
+        MariaDB4jSpringService mariaDB4jSpringService = new MariaDB4jSpringService();
+        mariaDB4jSpringService.setDefaultBaseDir("build/db/bin");
+        mariaDB4jSpringService.setDefaultDataDir("build/db/data");
+        return mariaDB4jSpringService;
     }
 
     @Override
