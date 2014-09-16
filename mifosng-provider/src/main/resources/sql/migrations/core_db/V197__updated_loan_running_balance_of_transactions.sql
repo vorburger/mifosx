@@ -11,4 +11,3 @@ INSERT INTO m_loan_transaction_temp(`id`,`loan_id`,`transaction_date`,`amount`) 
 UPDATE m_loan_transaction lt SET lt.outstanding_loan_balance_derived = (select sum(ltt.amount) from m_loan_transaction_temp ltt where ((ltt.transaction_date = lt.transaction_date and ltt.id  <= lt.id) or ltt.transaction_date < lt.transaction_date) and ltt.loan_id = lt.loan_id) where lt.transaction_type_enum != 10 and lt.is_reversed = 0;
 
 DROP TABLE `m_loan_transaction_temp`;
-
