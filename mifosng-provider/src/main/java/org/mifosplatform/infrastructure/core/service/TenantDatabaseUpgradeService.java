@@ -10,6 +10,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
+import org.mifosplatform.infrastructure.core.boot.TenantDataSourcePortFixService;
 import org.mifosplatform.infrastructure.core.domain.MifosPlatformTenant;
 import org.mifosplatform.infrastructure.security.service.TenantDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +28,17 @@ public class TenantDatabaseUpgradeService {
 
     private final TenantDetailsService tenantDetailsService;
     protected final DataSource tenantDataSource;
+    protected final TenantDataSourcePortFixService tenantDataSourcePortFixService;
 
     @Autowired
 	public TenantDatabaseUpgradeService(
 			final TenantDetailsService detailsService,
-			@Qualifier("tenantDataSourceJndi") final DataSource dataSource)
+			@Qualifier("tenantDataSourceJndi") final DataSource dataSource,
+			TenantDataSourcePortFixService tenantDataSourcePortFixService)
     {
         this.tenantDetailsService = detailsService;
         this.tenantDataSource = dataSource;
+        this.tenantDataSourcePortFixService = tenantDataSourcePortFixService;
     }
 
     @PostConstruct
@@ -62,5 +66,7 @@ public class TenantDatabaseUpgradeService {
 		flyway.setLocations("sql/migrations/list_db");
 		flyway.setOutOfOrder(true);
 		flyway.migrate();
+
+		tenantDataSourcePortFixService.fixUpTenantsSchemaServerPort();
 	}
 }
