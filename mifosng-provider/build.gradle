@@ -202,7 +202,7 @@ war {
 
 license {
     header rootProject.file('../LICENSE.md')
-    excludes(["**/*.mustache"])
+    excludes(["**/*.mustache", "**/*.sql", "**/package-info.java", "**/keystore.jks"])
     strictCheck true
 }
 

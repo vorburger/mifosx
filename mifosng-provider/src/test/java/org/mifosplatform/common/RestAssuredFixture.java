@@ -5,8 +5,6 @@
  */
 package org.mifosplatform.common;
 
-import org.mifosplatform.integrationtests.common.Utils;
-
 import com.google.common.base.Preconditions;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.builder.RequestSpecBuilder;
