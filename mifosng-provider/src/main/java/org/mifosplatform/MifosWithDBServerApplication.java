@@ -17,7 +17,9 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class MifosWithDBServerApplication {
 
     public static void main(String[] args) throws Exception {
-        ConfigurableApplicationContext ctx = SpringApplication.run(MifosWithDBConfiguration.class, args);
+        SpringApplication app = new SpringApplication(MifosWithDBConfiguration.class);
+        app.setShowBanner(false);
+        ConfigurableApplicationContext ctx = app.run(args);
         ServerApplicationExit.waitForKeyPressToCleanlyExit(ctx);
     }
 
