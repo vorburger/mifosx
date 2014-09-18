@@ -1,21 +1,20 @@
 package org.mifosplatform.boot;
 
-import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+
+import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mifosplatform.MifosServerApplication;
 import org.mifosplatform.MifosWithDBConfiguration;
-import org.springframework.beans.factory.annotation.Value;
+import org.mifosplatform.common.RestAssuredFixture;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.web.client.RestTemplate;
-
-import com.google.common.base.Preconditions;
 
 /**
  * This is an integration test for the Spring Boot launch stuff.
@@ -28,21 +27,13 @@ import com.google.common.base.Preconditions;
 @IntegrationTest({ "server.port=0", "management.port=0" })
 public class MifosSpringBootServerTest {
 
-    @Value("${local.server.port}")
-    protected int httpPort;
-
-    protected RestTemplate template = new TestRestTemplate();
+    protected RestAssuredFixture util;
 
     @Test
     public void hasMifosPlatformStarted() {
-        String response = template.getForObject(getApiUrl("/users"), String.class);
-        // TODO In case of e.g. 404 (or other error) response == null..
-        // it would be better if an Exception would be thrown?
-        assertThat(response, containsString("\"username\": \"mifos\""));
+	util = new RestAssuredFixture(8443);
+        List<Map<String, String>> response = util.httpGet("/users");
+        assertThat(response.get(0).get("username"), is("mifos"));
     }
 
-    protected String getApiUrl(String trailingApiUrl) {
-        Preconditions.checkArgument(trailingApiUrl.startsWith("/"), "trailingApiUrl must start with slash: " + trailingApiUrl);
-        return "http://localhost:" + httpPort + "/mifosng-provider/api/v1" + trailingApiUrl + "?tenantIdentifier=default";
-    }
 }

@@ -37,7 +37,7 @@ public class TomcatSSLConfiguration {
             File truststore = keystore;
             connector.setScheme("https");
             connector.setSecure(true);
-            connector.setPort(8443);
+            connector.setPort(getHTTPSPort());
             protocol.setSSLEnabled(true);
             protocol.setKeystoreFile(keystore.getAbsolutePath());
             protocol.setKeystorePass(getKeystorePass());
@@ -50,7 +50,12 @@ public class TomcatSSLConfiguration {
         }
     }
 
-    protected String getKeystorePass() {
+    protected int getHTTPSPort() {
+	// TODO This shouldn't be hard-coded here, but configurable
+		return 8443;
+	}
+
+	protected String getKeystorePass() {
         return "openmf";
     }
 
