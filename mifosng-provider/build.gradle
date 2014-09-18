@@ -50,6 +50,7 @@ repositories {
 }
 
 configurations {
+	providedRuntime // needed for Spring Boot executable WAR
     providedCompile
 	compile
 	runtime
@@ -64,6 +65,8 @@ dependencies {
 	        exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
 	    }
 	    tomcat "org.apache.tomcat:tomcat-dbcp:${tomcatVersion}"
+
+	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 
 	providedCompile(
 //				[group: 'javax.servlet', name: 'servlet-api', version: '2.5'],
@@ -404,3 +407,9 @@ def qualifyVersionIfNecessary(version) {
 	return version
 }
 
+springBoot {
+    mainClass = 'org.mifosplatform.MifosWithDBServerApplication'
+}
+bootRepackage {
+    mainClass = 'org.mifosplatform.MifosWithDBServerApplication'
+}
