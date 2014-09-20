@@ -24,7 +24,9 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class ServerApplication {
 
     public static void main(String[] args) throws Exception {
-        ConfigurableApplicationContext ctx = SpringApplication.run(ServerApplicationConfiguration.class, args);
+	SpringApplication app = new SpringApplication(ServerApplicationConfiguration.class);
+        // actually why not share the Spring Boot Love, so don't: app.setShowBanner(false);
+        ConfigurableApplicationContext ctx = app.run(args);
         ApplicationExitUtil.waitForKeyPressToCleanlyExit(ctx);
     }
 

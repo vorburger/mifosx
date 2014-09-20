@@ -20,7 +20,7 @@ public class ServerWithMariaDB4jApplication {
 
     public static void main(String[] args) throws Exception {
         SpringApplication app = new SpringApplication(ServerWithMariaDB4jApplicationConfiguration.class);
-        app.setShowBanner(false);
+        // actually why not share the Spring Boot Love, so don't: app.setShowBanner(false);
         ConfigurableApplicationContext ctx = app.run(args);
         ApplicationExitUtil.waitForKeyPressToCleanlyExit(ctx);
     }

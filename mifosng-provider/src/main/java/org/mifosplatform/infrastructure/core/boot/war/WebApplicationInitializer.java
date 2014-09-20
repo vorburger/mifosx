@@ -17,7 +17,8 @@ public class WebApplicationInitializer extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.showBanner(false).sources(WebApplicationInitializerConfiguration.class);
+        // why not share the Spring Boot Love, so true instead false for showBanner()
+        return application.showBanner(true).sources(WebApplicationInitializerConfiguration.class);
     }
 
 }
