@@ -10,12 +10,10 @@ import javax.sql.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableConfigurationProperties(DataSourceProperties.class)
 public class DataSourceConfiguration {
 
     public static final String CONFIGURATION_PREFIX = "mifos.datasource";

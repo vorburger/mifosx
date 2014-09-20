@@ -9,8 +9,10 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+@Component
 @ConfigurationProperties(prefix = DataSourceConfiguration.CONFIGURATION_PREFIX)
 public class DataSourceProperties extends PoolProperties {
 
