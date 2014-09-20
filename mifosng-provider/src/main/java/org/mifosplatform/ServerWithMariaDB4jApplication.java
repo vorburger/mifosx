@@ -5,8 +5,8 @@
  */
 package org.mifosplatform;
 
-import org.mifosplatform.infrastructure.core.boot.ServerApplicationExitUtil;
-import org.mifosplatform.infrastructure.core.boot.db.MifosWithMariaDB4jConfiguration;
+import org.mifosplatform.infrastructure.core.boot.ApplicationExitUtil;
+import org.mifosplatform.infrastructure.core.boot.db.ServerWithMariaDB4jApplicationConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
@@ -19,10 +19,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class ServerWithMariaDB4jApplication {
 
     public static void main(String[] args) throws Exception {
-        SpringApplication app = new SpringApplication(MifosWithMariaDB4jConfiguration.class);
+        SpringApplication app = new SpringApplication(ServerWithMariaDB4jApplicationConfiguration.class);
         app.setShowBanner(false);
         ConfigurableApplicationContext ctx = app.run(args);
-        ServerApplicationExitUtil.waitForKeyPressToCleanlyExit(ctx);
+        ApplicationExitUtil.waitForKeyPressToCleanlyExit(ctx);
     }
 
 }

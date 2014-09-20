@@ -5,7 +5,7 @@
  */
 package org.mifosplatform.infrastructure.core.boot.db;
 
-import org.mifosplatform.infrastructure.core.boot.AbstractConfiguration;
+import org.mifosplatform.infrastructure.core.boot.AbstractApplicationConfiguration;
 import org.mifosplatform.infrastructure.core.boot.EmbeddedTomcatWithSSLConfiguration;
 import org.springframework.context.annotation.Import;
 
@@ -16,5 +16,5 @@ import org.springframework.context.annotation.Import;
  */
 @Import({ MariaDB4jDataSourceConfiguration.class,
 		EmbeddedTomcatWithSSLConfiguration.class })
-public class MifosWithMariaDB4jConfiguration extends AbstractConfiguration {
+public class ServerWithMariaDB4jApplicationConfiguration extends AbstractApplicationConfiguration {
 }

@@ -32,6 +32,6 @@ import org.springframework.context.annotation.ImportResource;
 		HibernateJpaAutoConfiguration.class,
 		DataSourceTransactionManagerAutoConfiguration.class,
 		FlywayAutoConfiguration.class })
-public abstract class AbstractConfiguration {
+public abstract class AbstractApplicationConfiguration {
 
 }

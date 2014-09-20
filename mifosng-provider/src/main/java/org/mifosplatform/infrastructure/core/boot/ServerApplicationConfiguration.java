@@ -15,5 +15,5 @@ import org.springframework.context.annotation.Import;
  */
 @Import({ DataSourceConfiguration.class,
 		EmbeddedTomcatWithSSLConfiguration.class })
-public class MifosConfiguration extends AbstractConfiguration {
+public class ServerApplicationConfiguration extends AbstractApplicationConfiguration {
 }

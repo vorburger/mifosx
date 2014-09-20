@@ -5,13 +5,13 @@
  */
 package org.mifosplatform.infrastructure.core.boot.war;
 
-import org.mifosplatform.infrastructure.core.boot.AbstractConfiguration;
+import org.mifosplatform.infrastructure.core.boot.AbstractApplicationConfiguration;
 import org.springframework.context.annotation.ImportResource;
 
 /**
- * Configuration for WAR mode, used by MifosSpringBootServletWebApplicationInitializer.
+ * Configuration for WAR mode, used by WebApplicationInitializer.
  *
- * This just adds the JNDI-based DataSource lookup to its AbstractConfiguration.
+ * This just adds the JNDI-based DataSource lookup to its AbstractApplicationConfiguration.
  *
  * This Configuration (intentionally) only configures the original (pre-Spring
  * Boot & MariaDB4j) Mifos X Spring Beans, and does NOT include the embedded
@@ -19,10 +19,10 @@ import org.springframework.context.annotation.ImportResource;
  * MariaDB4jDataSourceConfiguration, and not even the DataSourceConfiguration
  * (as it uses "classic" JNDI) - we want the WAR to "work like before".
  *
- * @see MifosSpringBootServletWebApplicationInitializer
+ * @see WebApplicationInitializer
  * @see <a
  *      href="http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-convert-an-existing-application-to-spring-boot">#howto-convert-an-existing-application-to-spring-boot</a>
  */
 @ImportResource({ "classpath*:META-INF/spring/jndi.xml" })
-public class MifosServletWebApplicationInitializerConfiguration extends AbstractConfiguration {
+public class WebApplicationInitializerConfiguration extends AbstractApplicationConfiguration {
 }

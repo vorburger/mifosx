@@ -37,7 +37,7 @@ public class TenantDataSourcePortFixService {
 	private static final Logger logger = LoggerFactory.getLogger(TenantDataSourcePortFixService.class);
 
 	// required=false is important here, because in
-	// MifosServletWebApplicationInitializerConfiguration for classic WAR there
+	// WebApplicationInitializerConfiguration for classic WAR there
 	// is (intentionally) no MariaDB4j
 	private @Autowired(required=false) MariaDB4jSpringService mariaDB4j;
 

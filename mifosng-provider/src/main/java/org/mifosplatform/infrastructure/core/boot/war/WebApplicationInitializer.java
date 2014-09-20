@@ -11,13 +11,13 @@ import org.springframework.boot.context.web.SpringBootServletInitializer;
 /**
  * Required to still have a working legacy "classic" WAR.
  *
- * @see MifosServletWebApplicationInitializerConfiguration
+ * @see WebApplicationInitializerConfiguration
  */
-public class MifosSpringBootServletWebApplicationInitializer extends SpringBootServletInitializer {
+public class WebApplicationInitializer extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.showBanner(false).sources(MifosServletWebApplicationInitializerConfiguration.class);
+        return application.showBanner(false).sources(WebApplicationInitializerConfiguration.class);
     }
 
 }

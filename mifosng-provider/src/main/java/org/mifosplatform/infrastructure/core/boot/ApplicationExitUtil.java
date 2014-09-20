@@ -11,9 +11,9 @@ import java.io.InputStreamReader;
 
 import org.springframework.context.ConfigurableApplicationContext;
 
-public abstract class ServerApplicationExitUtil {
+public abstract class ApplicationExitUtil {
 
-    private ServerApplicationExitUtil() {}
+    private ApplicationExitUtil() {}
 
     public static void waitForKeyPressToCleanlyExit(ConfigurableApplicationContext ctx) throws IOException {
 
