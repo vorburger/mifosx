@@ -5,6 +5,8 @@
  */
 package org.mifosplatform;
 
+import org.mifosplatform.infrastructure.core.boot.MifosConfiguration;
+import org.mifosplatform.infrastructure.core.boot.ServerApplicationExitUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
@@ -23,7 +25,7 @@ public class MifosServerApplication {
 
     public static void main(String[] args) throws Exception {
         ConfigurableApplicationContext ctx = SpringApplication.run(MifosConfiguration.class, args);
-        ServerApplicationExit.waitForKeyPressToCleanlyExit(ctx);
+        ServerApplicationExitUtil.waitForKeyPressToCleanlyExit(ctx);
     }
 
 }

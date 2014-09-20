@@ -15,8 +15,8 @@
     <!--  =========================================================================
             web.xml is no longer used since the switch to Spring Boot.
 
-            org.mifosplatform.MifosServletWebApplicationInitializerConfiguration
-            and org.mifosplatform.WebConfiguration take its place now.
+            org.mifosplatform.infrastructure.core.boot.MifosServletWebApplicationInitializerConfiguration
+            and org.mifosplatform.infrastructure.core.boot.WebConfiguration take its place now.
           =========================================================================
       -->
 

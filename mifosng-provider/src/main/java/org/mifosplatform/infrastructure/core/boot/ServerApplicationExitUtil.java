@@ -3,7 +3,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package org.mifosplatform;
+package org.mifosplatform.infrastructure.core.boot;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,12 +11,11 @@ import java.io.InputStreamReader;
 
 import org.springframework.context.ConfigurableApplicationContext;
 
-public abstract class ServerApplicationExit {
+public abstract class ServerApplicationExitUtil {
 
-    private ServerApplicationExit() {}
+    private ServerApplicationExitUtil() {}
 
-    /* package local */
-    static void waitForKeyPressToCleanlyExit(ConfigurableApplicationContext ctx) throws IOException {
+    public static void waitForKeyPressToCleanlyExit(ConfigurableApplicationContext ctx) throws IOException {
 
         // NOTE: In Eclipse, the Shutdown Hooks are not invoked on exit (red
         // button).. In the case of MariaDB4j that's a problem because then the

@@ -6,4 +6,4 @@
  * SpringBootServletInitializer/WebApplicationInitializer
  * (contrary to suggestions in Spring documentation).
  */
-package org.mifosplatform;
+package org.mifosplatform.infrastructure.core.boot;

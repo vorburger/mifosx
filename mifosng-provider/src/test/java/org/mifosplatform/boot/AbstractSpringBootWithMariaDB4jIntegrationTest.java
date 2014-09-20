@@ -6,7 +6,7 @@
 package org.mifosplatform.boot;
 
 import org.junit.runner.RunWith;
-import org.mifosplatform.MifosWithMariaDB4jConfiguration;
+import org.mifosplatform.infrastructure.core.boot.MifosWithMariaDB4jConfiguration;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;

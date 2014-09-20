@@ -5,6 +5,8 @@
  */
 package org.mifosplatform;
 
+import org.mifosplatform.infrastructure.core.boot.MifosWithMariaDB4jConfiguration;
+import org.mifosplatform.infrastructure.core.boot.ServerApplicationExitUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
@@ -20,7 +22,7 @@ public class MifosWithMariaDB4jApplication {
         SpringApplication app = new SpringApplication(MifosWithMariaDB4jConfiguration.class);
         app.setShowBanner(false);
         ConfigurableApplicationContext ctx = app.run(args);
-        ServerApplicationExit.waitForKeyPressToCleanlyExit(ctx);
+        ServerApplicationExitUtil.waitForKeyPressToCleanlyExit(ctx);
     }
 
 }
