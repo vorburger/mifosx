@@ -5,8 +5,6 @@
  */
 package org.mifosplatform.infrastructure.core.boot.db;
 
-import javax.sql.DataSource;
-
 import org.apache.tomcat.jdbc.pool.PoolConfiguration;
 import org.mifosplatform.infrastructure.core.boot.DataSourceConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -16,11 +14,6 @@ import ch.vorburger.mariadb4j.springframework.MariaDB4jSpringService;
 
 @Configuration
 public class MariaDB4jDataSourceConfiguration extends DataSourceConfiguration {
-
-	@Override
-	public DataSource tenantDataSourceJndi() {
-		return super.tenantDataSourceJndi();
-	}
 
     @Bean
     public MariaDB4jSetupService mariaDB4jSetUp() {
