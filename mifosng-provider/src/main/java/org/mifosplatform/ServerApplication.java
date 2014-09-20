@@ -5,13 +5,19 @@
  */
 package org.mifosplatform;
 
-import org.mifosplatform.infrastructure.core.boot.ServerApplicationConfiguration;
+import org.mifosplatform.infrastructure.core.boot.AbstractApplicationConfiguration;
 import org.mifosplatform.infrastructure.core.boot.ApplicationExitUtil;
+import org.mifosplatform.infrastructure.core.boot.DataSourceConfiguration;
+import org.mifosplatform.infrastructure.core.boot.EmbeddedTomcatWithSSLConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Import;
 
 /**
- * Mifos main() launching embedded HTTP server (using Spring Boot).
+ * Mifos main() application which launches Mifos X in an embedded Tomcat HTTP
+ * (using Spring Boot).
+ *
+ * The DataSource used is a to a "normal" external database (not use MariaDB4j).
  *
  * You can easily launch this via Debug as Java Application in your IDE -
  * without needing command line Gradle stuff, no need to build and deploy a WAR,
@@ -19,15 +25,20 @@ import org.springframework.context.ConfigurableApplicationContext;
  *
  * It's the old/classic Mifos (non-X) Workspace 2.0 reborn for Mifos X! ;-)
  *
- * @see ServerWithMariaDB4jApplication for a variant which incl. an embedded DB if you prefer
+ * @see ServerWithMariaDB4jApplication for a variant with an embedded DB
  */
 public class ServerApplication {
 
-    public static void main(String[] args) throws Exception {
-	SpringApplication app = new SpringApplication(ServerApplicationConfiguration.class);
-        // actually why not share the Spring Boot Love, so don't: app.setShowBanner(false);
-        ConfigurableApplicationContext ctx = app.run(args);
-        ApplicationExitUtil.waitForKeyPressToCleanlyExit(ctx);
-    }
+	@Import({ DataSourceConfiguration.class,
+			EmbeddedTomcatWithSSLConfiguration.class })
+	private static class Configuration extends AbstractApplicationConfiguration {
+	}
+
+	public static void main(String[] args) throws Exception {
+		SpringApplication app = new SpringApplication(Configuration.class);
+		// let's share Spring Boot Love, so no app.setShowBanner(false);
+		ConfigurableApplicationContext ctx = app.run(args);
+		ApplicationExitUtil.waitForKeyPressToCleanlyExit(ctx);
+	}
 
 }

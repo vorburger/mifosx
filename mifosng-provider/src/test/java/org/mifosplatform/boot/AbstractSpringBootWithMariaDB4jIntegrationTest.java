@@ -6,14 +6,14 @@
 package org.mifosplatform.boot;
 
 import org.junit.runner.RunWith;
-import org.mifosplatform.infrastructure.core.boot.db.ServerWithMariaDB4jApplicationConfiguration;
+import org.mifosplatform.ServerWithMariaDB4jApplication;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = ServerWithMariaDB4jApplicationConfiguration.class)
+@SpringApplicationConfiguration(classes = ServerWithMariaDB4jApplication.Configuration.class)
 @WebAppConfiguration
 @IntegrationTest({ "server.port=0", "management.port=0" })
 public abstract class AbstractSpringBootWithMariaDB4jIntegrationTest {
