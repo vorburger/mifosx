@@ -28,15 +28,11 @@ import org.springframework.context.annotation.Import;
  */
 public class ServerWithMariaDB4jApplication {
 
-	@Import({ MariaDB4jDataSourceConfiguration.class,
-			EmbeddedTomcatWithSSLConfiguration.class })
-	public static class Configuration extends AbstractApplicationConfiguration {
-	}
+	@Import({ MariaDB4jDataSourceConfiguration.class, EmbeddedTomcatWithSSLConfiguration.class })
+	public static class Configuration extends AbstractApplicationConfiguration { }
 
 	public static void main(String[] args) throws Exception {
-		SpringApplication app = new SpringApplication(Configuration.class);
-		// let's share Spring Boot Love, so no app.setShowBanner(false);
-		ConfigurableApplicationContext ctx = app.run(args);
+		ConfigurableApplicationContext ctx = SpringApplication.run(Configuration.class, args);
 		ApplicationExitUtil.waitForKeyPressToCleanlyExit(ctx);
 	}
 
