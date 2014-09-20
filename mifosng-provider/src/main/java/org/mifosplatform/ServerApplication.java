@@ -19,9 +19,9 @@ import org.springframework.context.ConfigurableApplicationContext;
  *
  * It's the old/classic Mifos (non-X) Workspace 2.0 reborn for Mifos X! ;-)
  *
- * @see MifosWithMariaDB4jApplication for a variant which incl. an embedded DB if you prefer
+ * @see ServerWithMariaDB4jApplication for a variant which incl. an embedded DB if you prefer
  */
-public class MifosServerApplication {
+public class ServerApplication {
 
     public static void main(String[] args) throws Exception {
         ConfigurableApplicationContext ctx = SpringApplication.run(MifosConfiguration.class, args);

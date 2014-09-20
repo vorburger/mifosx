@@ -12,13 +12,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.mifosplatform.MifosServerApplication;
+import org.mifosplatform.ServerApplication;
 import org.mifosplatform.common.RestAssuredFixture;
 
 /**
  * This is an integration test for the Spring Boot launch stuff.
  *
- * @see MifosServerApplication
+ * @see ServerApplication
  */
 public class SpringBootServerLoginTest extends AbstractSpringBootWithMariaDB4jIntegrationTest {
 

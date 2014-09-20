@@ -8,7 +8,7 @@ package org.mifosplatform.infrastructure.core.boot;
 import org.springframework.context.annotation.Import;
 
 /**
- * Configuration for Mifos X on Spring Boot, used by the MifosServerApplication.
+ * Configuration for Mifos X on Spring Boot, used by the ServerApplication.
  *
  * This adds the embedded Tomcat, and a DataSource to a "normal" external
  * database. This does Configuration does not use MariaDB4j.
