@@ -10,7 +10,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
-import org.mifosplatform.infrastructure.core.boot.TenantDataSourcePortFixService;
+import org.mifosplatform.infrastructure.core.boot.db.TenantDataSourcePortFixService;
 import org.mifosplatform.infrastructure.core.domain.MifosPlatformTenant;
 import org.mifosplatform.infrastructure.security.service.TenantDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;

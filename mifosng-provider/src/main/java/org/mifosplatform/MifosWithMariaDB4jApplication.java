@@ -5,8 +5,8 @@
  */
 package org.mifosplatform;
 
-import org.mifosplatform.infrastructure.core.boot.MifosWithMariaDB4jConfiguration;
 import org.mifosplatform.infrastructure.core.boot.ServerApplicationExitUtil;
+import org.mifosplatform.infrastructure.core.boot.db.MifosWithMariaDB4jConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
