@@ -6,6 +6,7 @@
 package org.mifosplatform;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
@@ -17,7 +18,7 @@ import org.springframework.context.annotation.ImportResource;
 @Import({ WebConfiguration.class, MariaDB4jDataSourceConfiguration.class, TomcatSSLConfiguration.class })
 @ImportResource("classpath*:META-INF/spring/appContext.xml")
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class,
-        DataSourceTransactionManagerAutoConfiguration.class })
+        DataSourceTransactionManagerAutoConfiguration.class, FlywayAutoConfiguration.class })
 // NOTE: Due to https://github.com/spring-projects/spring-boot/issues/1328, we
 // must repeat above, and cannot just extends MifosConfiguration and "override"
 // only @Import(MariaDB4jDataSourceConfiguration.class)

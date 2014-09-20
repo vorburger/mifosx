@@ -36,7 +36,11 @@ import ch.vorburger.mariadb4j.springframework.MariaDB4jSpringService;
 public class TenantDataSourcePortFixService {
 	private static final Logger logger = LoggerFactory.getLogger(TenantDataSourcePortFixService.class);
 
-	private @Autowired MariaDB4jSpringService mariaDB4j;
+	// required=false is important here, because in
+	// MifosServletWebApplicationInitializerConfiguration for classic WAR there
+	// is (intentionally) no MariaDB4j
+	private @Autowired(required=false) MariaDB4jSpringService mariaDB4j;
+
 	private JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -45,7 +49,7 @@ public class TenantDataSourcePortFixService {
     }
 
     public void fixUpTenantsSchemaServerPort() {
-	if (!mariaDB4j.isRunning())
+	if (mariaDB4j == null || !mariaDB4j.isRunning())
 		return;
 	int port = mariaDB4j.getConfiguration().getPort();
 	int r = jdbcTemplate.update("UPDATE tenants SET schema_server_port = ?", port);

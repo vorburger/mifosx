@@ -6,6 +6,7 @@
 package org.mifosplatform;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
@@ -25,13 +26,11 @@ import org.springframework.context.annotation.ImportResource;
 @Import({ WebConfiguration.class })
 @ImportResource({ "classpath*:META-INF/spring/jndi.xml", "classpath*:META-INF/spring/appContext.xml" })
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class,
-        DataSourceTransactionManagerAutoConfiguration.class })
+        DataSourceTransactionManagerAutoConfiguration.class, FlywayAutoConfiguration.class })
 public class MifosServletWebApplicationInitializerConfiguration extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        // TODO switch between MifosConfiguration & MifosWithDBConfiguration
-        // respectively dynamically mix-in MariaDB4jDataSourceConfiguration
-        return application.sources(MifosServletWebApplicationInitializerConfiguration.class);
+        return application.showBanner(false).sources(MifosServletWebApplicationInitializerConfiguration.class);
     }
 }
