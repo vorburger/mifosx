@@ -20,7 +20,7 @@ import org.mifosplatform.common.RestAssuredFixture;
  *
  * @see MifosServerApplication
  */
-public class SpringBootServerLoginTest extends SpringBootIntegrationTest {
+public class SpringBootServerLoginTest extends AbstractSpringBootWithMariaDB4jIntegrationTest {
 
     protected RestAssuredFixture util;
 

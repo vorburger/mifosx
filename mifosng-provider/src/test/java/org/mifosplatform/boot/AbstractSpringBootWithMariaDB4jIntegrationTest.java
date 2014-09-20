@@ -6,17 +6,17 @@
 package org.mifosplatform.boot;
 
 import org.junit.runner.RunWith;
-import org.mifosplatform.MifosWithDBConfiguration;
+import org.mifosplatform.MifosWithMariaDB4jConfiguration;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = MifosWithDBConfiguration.class)
+@SpringApplicationConfiguration(classes = MifosWithMariaDB4jConfiguration.class)
 @WebAppConfiguration
 @IntegrationTest({ "server.port=0", "management.port=0" })
-public abstract class SpringBootIntegrationTest {
+public abstract class AbstractSpringBootWithMariaDB4jIntegrationTest {
 
 	// do NOT put any helper methods here!
 	// it's much better to use composition instead of inheritance

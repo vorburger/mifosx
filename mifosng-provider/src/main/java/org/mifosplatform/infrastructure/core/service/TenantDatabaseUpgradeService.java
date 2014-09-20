@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.googlecode.flyway.core.Flyway;
+import com.googlecode.flyway.core.api.FlywayException;
 
 /**
  * A service that picks up on tenants that are configured to auto-update their
@@ -47,12 +48,18 @@ public class TenantDatabaseUpgradeService {
         final List<MifosPlatformTenant> tenants = this.tenantDetailsService.findAllTenants();
         for (final MifosPlatformTenant tenant : tenants) {
             if (tenant.isAutoUpdateEnabled()) {
-		// similar Fly code is also in MariaDB4jSetupService.upgradeTenantDB()
                 final Flyway flyway = new Flyway();
                 flyway.setDataSource(tenant.databaseURL(), tenant.getSchemaUsername(), tenant.getSchemaPassword());
                 flyway.setLocations("sql/migrations/core_db");
                 flyway.setOutOfOrder(true);
-                flyway.migrate();
+                try {
+			flyway.migrate();
+                } catch (FlywayException e) {
+					String betterMessage = e.getMessage()
+							+ "; for Tenant DB URL: " + tenant.databaseURL()
+							+ ", username: " + tenant.getSchemaUsername();
+					throw new FlywayException(betterMessage, e.getCause());
+                }
             }
         }
     }
@@ -60,7 +67,7 @@ public class TenantDatabaseUpgradeService {
 	/**
 	 * Initializes, and if required upgrades (using Flyway) the Tenant DB itself.
 	 */
-	protected void upgradeTenantDB() {
+	private void upgradeTenantDB() {
 		final Flyway flyway = new Flyway();
 		flyway.setDataSource(tenantDataSource);
 		flyway.setLocations("sql/migrations/list_db");

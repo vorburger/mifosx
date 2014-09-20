@@ -49,8 +49,11 @@ public class TenantDataSourcePortFixService {
     }
 
     public void fixUpTenantsSchemaServerPort() {
-	if (mariaDB4j == null || !mariaDB4j.isRunning())
+	if (mariaDB4j == null || !mariaDB4j.isRunning()) {
+		// we don't have any generic mechanism to know the DB port, given just a tenant DataSource
+		logger.info("No schema_server_port UPDATE made to tenants table of the mifosplatform-tenants schema (because MariaDB4j is not used)");
 		return;
+	}
 	int port = mariaDB4j.getConfiguration().getPort();
 	int r = jdbcTemplate.update("UPDATE tenants SET schema_server_port = ?", port);
 	if ( r == 0 )

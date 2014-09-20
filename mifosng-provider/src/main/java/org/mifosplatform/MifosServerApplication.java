@@ -17,7 +17,7 @@ import org.springframework.context.ConfigurableApplicationContext;
  *
  * It's the old/classic Mifos (non-X) Workspace 2.0 reborn for Mifos X! ;-)
  *
- * @see MifosWithDBServerApplication for a variant which incl. an embedded DB if you prefer
+ * @see MifosWithMariaDB4jApplication for a variant which incl. an embedded DB if you prefer
  */
 public class MifosServerApplication {
 

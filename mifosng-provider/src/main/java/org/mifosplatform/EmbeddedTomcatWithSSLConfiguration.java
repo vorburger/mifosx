@@ -18,7 +18,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 @Configuration
-public class TomcatSSLConfiguration {
+public class EmbeddedTomcatWithSSLConfiguration {
 
     // http://docs.spring.io/spring-boot/docs/1.1.5.RELEASE/reference/htmlsingle/#howto-enable-multiple-connectors-in-tomcat
 
