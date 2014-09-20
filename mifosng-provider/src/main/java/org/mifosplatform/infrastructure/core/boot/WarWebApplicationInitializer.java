@@ -3,9 +3,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package org.mifosplatform.infrastructure.core.boot.war;
+package org.mifosplatform.infrastructure.core.boot;
 
-import org.mifosplatform.infrastructure.core.boot.AbstractApplicationConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.ImportResource;
@@ -25,7 +24,7 @@ import org.springframework.context.annotation.ImportResource;
  * @see <a
  *      href="http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-convert-an-existing-application-to-spring-boot">#howto-convert-an-existing-application-to-spring-boot</a>
  */
-public class WebApplicationInitializer extends SpringBootServletInitializer {
+public class WarWebApplicationInitializer extends SpringBootServletInitializer {
 
 	@ImportResource({ "classpath*:META-INF/spring/jndi.xml" })
 	private static class Configuration extends AbstractApplicationConfiguration {
