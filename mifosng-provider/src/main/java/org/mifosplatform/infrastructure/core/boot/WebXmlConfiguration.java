@@ -23,7 +23,7 @@ import com.sun.jersey.spi.spring.container.servlet.SpringServlet;
  *      href="http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-convert-an-existing-application-to-spring-boot">#howto-convert-an-existing-application-to-spring-boot</a>
  */
 @Configuration
-public class WebConfiguration {
+public class WebXmlConfiguration {
 
     @Bean
     public Filter springSecurityFilterChain() {

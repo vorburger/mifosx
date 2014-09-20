@@ -20,13 +20,13 @@ import org.springframework.context.annotation.ImportResource;
  * Notably the EnableAutoConfiguration excludes relevant for (and often adjusted
  * when upgrading versions of) Spring Boot, the "old" (pre. Spring Boot &
  * MariaDB4j) Mifos X appContext.xml which all configurations need, and the
- * web.xml successor WebConfiguration.
+ * web.xml successor WebXmlConfiguration.
  *
  * Should NOT include Configuration related to embedded Tomcat, data sources,
  * and MariaDB4j (because those differ in the subclasses).
  */
 @Configuration
-@Import({ WebConfiguration.class })
+@Import({ WebXmlConfiguration.class })
 @ImportResource({ "classpath*:META-INF/spring/appContext.xml" })
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class,
 		HibernateJpaAutoConfiguration.class,
