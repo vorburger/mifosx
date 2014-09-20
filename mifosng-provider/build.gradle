@@ -301,7 +301,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.github.ben-manes:gradle-flyway-plugin:0.2'
+        classpath "org.flywaydb:flyway-gradle-plugin:3.0" // version upgraded during Spring Boot & MariaDB4j work, as prev. used v0.2 didn't work well after *.sql moved from mifosng-db to mifosng-provider/src/main/resources (new version also has clearer errors, e.g. in case of missing DB)
         classpath 'mysql:mysql-connector-java:5.1.22'
     }
 }
@@ -311,15 +311,12 @@ flyway {
     url = "jdbc:mysql://localhost:3306/mifostenant-default"
     user = mysqlUser
     password = mysqlPassword
-    
-    def filePath = "filesystem:$projectDir" + System.properties['file.separator'] + '..' + System.properties['file.separator'] + 'mifosng-db' + System.properties['file.separator'] + 'migrations'
-    locations = [filePath]
 }
 
 task migrateTenantDB<<{
     description="Migrates a Tenant DB. Optionally can pass dbName. Defaults to 'mifostenant-default' (Example: -PdbName=someTenantDBname)"
 
-	def filePath = "filesystem:$projectDir" + System.properties['file.separator'] + '..' + System.properties['file.separator'] + 'mifosng-db' + System.properties['file.separator'] + 'migrations/core_db'
+	def filePath = "filesystem:$projectDir" + '/src/main/resources/sql/migrations/core_db'
 	def tenantDbName = 'mifostenant-default';
     if (rootProject.hasProperty("dbName")) {
 		tenantDbName = rootProject.getProperty("dbName")
@@ -334,7 +331,7 @@ task migrateTenantDB<<{
 task showTenantDBInfo<<{
     description="Shows the migration info for a Tenant DB. Optionally can pass dbName. Defaults to 'mifostenant-default' (Example: -PdbName=someTenantDBname)"
     
-    def filePath = "filesystem:$projectDir" + System.properties['file.separator'] + '..' + System.properties['file.separator'] + 'mifosng-db' + System.properties['file.separator'] + 'migrations/core_db'
+	def filePath = "filesystem:$projectDir" + '/src/main/resources/sql/migrations/core_db'
     def tenantDbName = 'mifostenant-default';
     if (rootProject.hasProperty("dbName")) {
 		tenantDbName = rootProject.getProperty("dbName")
@@ -349,7 +346,7 @@ task showTenantDBInfo<<{
 task migrateTenantListDB<<{
     description="Migrates a Tenant List DB. Optionally can pass dbName. Defaults to 'mifosplatform-tenants' (Example: -PdbName=someDBname)"
 
-	def filePath = "filesystem:$projectDir" + System.properties['file.separator'] + '..' + System.properties['file.separator'] + 'mifosng-db' + System.properties['file.separator'] + 'migrations/list_db'
+	def filePath = "filesystem:$projectDir" + '/src/main/resources/sql/migrations/list_db'
  	def tenantsDbName = 'mifosplatform-tenants';
     if (rootProject.hasProperty("dbName")) {
 		tenantsDbName = rootProject.getProperty("dbName")
@@ -364,7 +361,7 @@ task migrateTenantListDB<<{
 task showTenantListDBInfo<<{
     description="Shows the migration info for a List DB. Optionally can pass dbName. Defaults to 'mifosplatform-tenants' (Example: -PdbName=someDBname)"
     
-    def filePath = "filesystem:$projectDir" + System.properties['file.separator'] + '..' + System.properties['file.separator'] + 'mifosng-db' + System.properties['file.separator'] + 'migrations/list_db'
+	def filePath = "filesystem:$projectDir" + '/src/main/resources/sql/migrations/list_db'
     def tenantsDbName = 'mifosplatform-tenants';
     if (rootProject.hasProperty("dbName")) {
 		tenantsDbName = rootProject.getProperty("dbName")
@@ -378,7 +375,7 @@ task showTenantListDBInfo<<{
 task repairTenantDB<<{
     description="repair migrate"
     
-    def filePath = "filesystem:$projectDir" + System.properties['file.separator'] + '..' + System.properties['file.separator'] + 'mifosng-db' + System.properties['file.separator'] + 'migrations/list_db'
+	def filePath = "filesystem:$projectDir" + '/src/main/resources/sql/migrations/list_db'
     def tenantsDbName = 'mifosplatform-tenants';
     if (rootProject.hasProperty("dbName")) {
         tenantsDbName = rootProject.getProperty("dbName")
