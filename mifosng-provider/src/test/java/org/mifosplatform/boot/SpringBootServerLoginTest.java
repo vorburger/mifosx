@@ -12,14 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mifosplatform.MifosServerApplication;
-import org.mifosplatform.MifosWithDBConfiguration;
 import org.mifosplatform.common.RestAssuredFixture;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
  * This is an integration test for the Spring Boot launch stuff.
