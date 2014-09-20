@@ -224,7 +224,7 @@ tomcatRunWar {
     stopPort = 8081
     stopKey=   'stopKey'
     enableSSL = true
-    keystoreFile = file('src/test/resources/keystore.jks')
+    keystoreFile = file('src/main/resources/keystore.jks')
     keystorePass = 'openmf'
     configFile = file('src/test/resources/META-INF/context.xml')
 }

@@ -38,7 +38,7 @@ public class Utils {
     public static void initializeRESTAssured() {
         RestAssured.baseURI = "https://localhost";
         RestAssured.port = 8443;
-        RestAssured.keystore("src/test/resources/keystore.jks", "openmf");
+        RestAssured.keystore("src/main/resources/keystore.jks", "openmf");
     }
 
     public static String loginIntoServerAndGetBase64EncodedAuthenticationKey() {

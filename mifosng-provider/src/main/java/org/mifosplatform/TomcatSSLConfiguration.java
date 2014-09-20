@@ -65,7 +65,7 @@ public class TomcatSSLConfiguration {
     }
 
     protected Resource getKeystore() {
-        return new ClassPathResource("keystore.jks");
+        return new ClassPathResource("/keystore.jks");
     }
 
 }
