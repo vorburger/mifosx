@@ -7,12 +7,11 @@ package org.mifosplatform.infrastructure.configuration.spring;
 
 import javax.sql.DataSource;
 
+import org.mifosplatform.infrastructure.core.boot.AbstractApplicationConfiguration;
 import org.mifosplatform.infrastructure.core.service.TenantDatabaseUpgradeService;
 import org.mifosplatform.infrastructure.jobs.service.JobRegisterService;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
 
 /**
  * Spring @Configuration which does not require a running database. It also does
@@ -20,9 +19,7 @@ import org.springframework.context.annotation.ImportResource;
  * background jobs. For some integration tests, this may be perfectly sufficient
  * (and faster to run such tests).
  */
-@Configuration
-@ImportResource("classpath*:META-INF/spring/appContext.xml")
-public class TestsWithoutDatabaseAndNoJobsConfiguration {
+public class TestsWithoutDatabaseAndNoJobsConfiguration extends AbstractApplicationConfiguration {
 
     /**
      * Override TenantDatabaseUpgradeService binding, because the real one has a @PostConstruct
