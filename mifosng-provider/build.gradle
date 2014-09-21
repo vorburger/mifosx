@@ -405,8 +405,8 @@ def qualifyVersionIfNecessary(version) {
 }
 
 springBoot {
-    mainClass = 'org.mifosplatform.MifosWithDBServerApplication'
+    mainClass = 'org.mifosplatform.ServerWithMariaDB4jApplication'
 }
 bootRepackage {
-    mainClass = 'org.mifosplatform.MifosWithDBServerApplication'
+    mainClass = 'org.mifosplatform.ServerWithMariaDB4jApplication'
 }
