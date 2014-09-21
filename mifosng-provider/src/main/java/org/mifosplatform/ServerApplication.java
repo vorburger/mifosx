@@ -7,9 +7,9 @@ package org.mifosplatform;
 
 import org.mifosplatform.infrastructure.core.boot.AbstractApplicationConfiguration;
 import org.mifosplatform.infrastructure.core.boot.ApplicationExitUtil;
-import org.mifosplatform.infrastructure.core.boot.DataSourceConfiguration;
-import org.mifosplatform.infrastructure.core.boot.DataSourceProperties;
 import org.mifosplatform.infrastructure.core.boot.EmbeddedTomcatWithSSLConfiguration;
+import org.mifosplatform.infrastructure.core.boot.db.DataSourceConfiguration;
+import org.mifosplatform.infrastructure.core.boot.db.DataSourceProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Import;

@@ -6,7 +6,6 @@
 package org.mifosplatform.infrastructure.core.boot.db;
 
 import org.apache.tomcat.jdbc.pool.PoolConfiguration;
-import org.mifosplatform.infrastructure.core.boot.DataSourceConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
