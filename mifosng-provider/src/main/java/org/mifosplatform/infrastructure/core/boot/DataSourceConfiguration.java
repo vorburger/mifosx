@@ -8,23 +8,28 @@ package org.mifosplatform.infrastructure.core.boot;
 import javax.sql.DataSource;
 
 import org.apache.tomcat.jdbc.pool.PoolConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Configuration for a DataSource.
+ * @see DataSourceProperties about how to configure this DS
+ */
 @Configuration
 public class DataSourceConfiguration {
-
-    public static final String CONFIGURATION_PREFIX = "mifos.datasource";
+	private static final Logger logger = LoggerFactory.getLogger(DataSourceConfiguration.class);
 
     @Autowired
     private DataSourceProperties properties;
 
     @Bean
-    @ConfigurationProperties(prefix = DataSourceConfiguration.CONFIGURATION_PREFIX)
     public DataSource tenantDataSourceJndi() {
-        org.apache.tomcat.jdbc.pool.DataSource ds = new org.apache.tomcat.jdbc.pool.DataSource(getProperties());
+	PoolConfiguration p = getProperties();
+        org.apache.tomcat.jdbc.pool.DataSource ds = new org.apache.tomcat.jdbc.pool.DataSource(p);
+        logger.info("Created new DataSource; url=" + p.getUrl());
         return ds;
     }
 

@@ -8,19 +8,41 @@ package org.mifosplatform.infrastructure.core.boot;
 import javax.validation.constraints.NotNull;
 
 import org.apache.tomcat.jdbc.pool.PoolProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+/**
+ * Configurable DataSource. Properties have sensible defaults, but end-users can
+ * override those via the Spring Values listed below; i.e. via -D Java System
+ * properties, or main() command line arguments, OS environment variables, from
+ * JNDI, or application.properties (thanks Spring Boot). For example:
+ * -Dmifos.datasource.port=3307.
+ */
 @Component
-@ConfigurationProperties(prefix = DataSourceConfiguration.CONFIGURATION_PREFIX)
 public class DataSourceProperties extends PoolProperties {
 
-    private volatile @NotNull String jdbcProtocol = "jdbc";
-    private volatile @NotNull String jdbcSubprotocol = "mysql";
-    private volatile @NotNull String hostname = "localhost";
-    private volatile @NotNull int port = 3306;
-    private volatile @NotNull String dbName = "mifosplatform-tenants";
+    public final static String PORT = "mifos.datasource.port";
+    public final static String HOST = "mifos.datasource.host";
+    public final static String DB = "mifos.datasource.db";
+    public final static String PROTOCOL = "mifos.datasource.protocol";
+    public final static String SUBPROTOCOL = "mifos.datasource.subprotocol";
+
+    @Value("${" + PORT + ":3306}")
+    private volatile @NotNull int port;
+
+    @Value("${" + HOST + ":localhost}")
+    private volatile @NotNull String hostname;
+
+    @Value("${" + DB + ":mifosplatform-tenants}")
+    private volatile @NotNull String dbName;
+
+    @Value("${" + PROTOCOL + ":jdbc}")
+    private volatile @NotNull String jdbcProtocol;
+
+    @Value("${" + SUBPROTOCOL + ":mysql}")
+    private volatile @NotNull String jdbcSubprotocol;
+
 
     public DataSourceProperties() {
         super();

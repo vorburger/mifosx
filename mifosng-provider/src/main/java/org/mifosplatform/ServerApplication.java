@@ -8,6 +8,7 @@ package org.mifosplatform;
 import org.mifosplatform.infrastructure.core.boot.AbstractApplicationConfiguration;
 import org.mifosplatform.infrastructure.core.boot.ApplicationExitUtil;
 import org.mifosplatform.infrastructure.core.boot.DataSourceConfiguration;
+import org.mifosplatform.infrastructure.core.boot.DataSourceProperties;
 import org.mifosplatform.infrastructure.core.boot.EmbeddedTomcatWithSSLConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -18,6 +19,7 @@ import org.springframework.context.annotation.Import;
  * (using Spring Boot).
  *
  * The DataSource used is a to a "normal" external database (not use MariaDB4j).
+ * This DataSource can be configured with parameters, see {@link DataSourceProperties}.
  *
  * You can easily launch this via Debug as Java Application in your IDE -
  * without needing command line Gradle stuff, no need to build and deploy a WAR,
@@ -25,7 +27,8 @@ import org.springframework.context.annotation.Import;
  *
  * It's the old/classic Mifos (non-X) Workspace 2.0 reborn for Mifos X! ;-)
  *
- * @see ServerWithMariaDB4jApplication for a variant with an embedded DB
+ * @see DataSourceProperties about how to configure the DataSource used
+ * @see ServerWithMariaDB4jApplication for an alternative with an embedded DB
  */
 public class ServerApplication {
 
