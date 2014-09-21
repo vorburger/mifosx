@@ -15,7 +15,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ServerWithMariaDB4jApplication.Configuration.class)
 @WebAppConfiguration
-@IntegrationTest({ "server.port=0", "management.port=0" })
+@IntegrationTest({ "server.port=0", "management.port=0", "mariaDB4j.port=0", "mariaDB4j.dataDir=null" })
 public abstract class AbstractSpringBootWithMariaDB4jIntegrationTest {
 
 	// do NOT put any helper methods here!
