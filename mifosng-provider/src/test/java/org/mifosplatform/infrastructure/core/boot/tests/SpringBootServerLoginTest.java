@@ -3,7 +3,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package org.mifosplatform.boot;
+package org.mifosplatform.infrastructure.core.boot.tests;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
