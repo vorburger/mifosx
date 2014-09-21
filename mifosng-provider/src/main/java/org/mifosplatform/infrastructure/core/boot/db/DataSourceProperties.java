@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 /**
@@ -19,12 +18,14 @@ import org.springframework.util.StringUtils;
  * JNDI, or application.properties (thanks Spring Boot). For example:
  * -Dmifos.datasource.port=3307.
  */
-@Component
+// NOT a @Component - we do not want this to picked up by component scan, only explicitly declared in DataSourceConfiguration (if that's active)
 public class DataSourceProperties extends PoolProperties {
 
     public final static String PORT = "mifos.datasource.port";
     public final static String HOST = "mifos.datasource.host";
     public final static String DB = "mifos.datasource.db";
+    public final static String UID = "mifos.datasource.username";
+    public final static String PWD = "mifos.datasource.password";
     public final static String PROTOCOL = "mifos.datasource.protocol";
     public final static String SUBPROTOCOL = "mifos.datasource.subprotocol";
 
@@ -36,6 +37,12 @@ public class DataSourceProperties extends PoolProperties {
 
     @Value("${" + DB + ":mifosplatform-tenants}")
     private volatile @NotNull String dbName;
+
+    @Value("${" + UID + ":root}")
+    private volatile @NotNull String username;
+
+    @Value("${" + PWD + ":mysql}")
+    private volatile @NotNull String password;
 
     @Value("${" + PROTOCOL + ":jdbc}")
     private volatile @NotNull String jdbcProtocol;
@@ -51,14 +58,7 @@ public class DataSourceProperties extends PoolProperties {
         // overridden
         setDriverClassName(com.mysql.jdbc.Driver.class.getName());
 
-        setUsernameAndPassword();
-
         setMifosDefaults();
-    }
-
-    protected void setUsernameAndPassword() {
-        if (getUsername() == null) setUsername("root");
-        if (getPassword() == null) setPassword("mysql");
     }
 
     /**
@@ -86,11 +86,61 @@ public class DataSourceProperties extends PoolProperties {
     }
 
     @Override
-    public String getUrl() {
-        String url = super.getUrl();
-        if (StringUtils.hasText(url)) { return url; }
-        url = jdbcProtocol + ":" + jdbcSubprotocol + "://" + hostname + ":" + port + "/" + dbName;
-        return url;
+    public void setUrl(@SuppressWarnings("unused") String url) {
+	throw new UnsupportedOperationException("Use setHost/Port/DB() instead of setURL()");
     }
+
+	@Override
+	public String getUrl() {
+		String url = super.getUrl();
+		if (StringUtils.hasText(url)) {
+			throw new IllegalStateException();
+		}
+		return jdbcProtocol + ":" + jdbcSubprotocol + "://" + getHost() + ":" + getPort() + "/" + getDBName();
+	}
+
+	public String getHost() {
+		return hostname;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
+	public String getDBName() {
+		return dbName;
+	}
+
+	public void setPort(int port) {
+		this.port = port;
+	}
+
+	public void setHost(String hostname) {
+		this.hostname = hostname;
+	}
+
+	public void setDBName(String dbName) {
+		this.dbName = dbName;
+	}
+
+	@Override
+	public String getUsername() {
+		return this.username;
+	}
+
+	@Override
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	@Override
+	public String getPassword() {
+		return this.password;
+	}
+
+	@Override
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 }
