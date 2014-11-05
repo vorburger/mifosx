@@ -25,6 +25,10 @@ apply plugin: 'idea'
 apply plugin: 'tomcat'
 apply plugin: 'project-report'
 
+//For artifact publishing
+apply plugin: 'maven'
+apply plugin: 'signing'
+
 /* define the valid syntax level for source files */
 sourceCompatibility = JavaVersion.VERSION_1_7
 /* define binary compatibility version */
@@ -39,7 +43,7 @@ project.ext.mysqlUser='root'
 project.ext.mysqlPassword='mysql'
 
 
-group = 'org.mifosplatform'
+group = 'org.mifos'
 
 repositories {
 	jcenter()
@@ -410,4 +414,100 @@ springBoot {
 }
 bootRepackage {
     mainClass = 'org.mifosplatform.ServerWithMariaDB4jApplication'
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+ 
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+artifacts {
+    		archives jar, javadocJar, sourcesJar
+}
+
+install {
+    repositories.mavenInstaller {
+    	addFilter('jar') {artifact, file ->
+            artifact.ext == 'jar'
+        }
+    	pom('jar').version = qualifyVersionIfNecessary(releaseVersion)
+        pom('jar').artifactId = 'mifosng-provider'
+        pom('jar').project {
+          parent { 
+            groupId 'org.springframework.boot'
+            artifactId 'spring-boot-starter-parent'
+            version "$springBootVersion"
+          }
+        }
+    }
+}
+
+
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      addFilter('jar') {artifact, file ->
+            artifact.ext == 'jar'
+      }
+      pom('jar').version = qualifyVersionIfNecessary(releaseVersion)
+      pom('jar').artifactId = 'mifosng-provider'
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      pom('jar').project {
+        name 'mifosng-provider'
+        packaging 'jar'
+        // optionally artifactId can be defined here 
+        description 'Modern platform with a modular service-oriented architecture'
+        	+	'providing the core functionality needed for financial inclusion. Everything'
+        	+   'is exposed through APIs allowing partners & developers to leverage and re-use'
+        	+   'the core while quickly building out unique apps, solutions, and integrations.'
+        url 'https://github.com/openmf/mifosx'
+        
+        parent { 
+            groupId 'org.springframework.boot'
+            artifactId 'spring-boot-starter-parent'
+            version "$springBootVersion"
+        }
+
+        scm {
+           url 'scm:git:https://github.com/openmf/mifosx.git'
+           connection 'scm:git:https://github.com/openmf/mifosx.git'
+           developerConnection 'scm:git:https://github.com/openmf/mifosx.git'
+        }
+
+        licenses {
+          license {
+            name 'Mozilla Public License, Version 2.0'
+            url 'https://www.mozilla.org/MPL/2.0/'
+          }
+        }
+
+        developers {
+          developer {
+            id 'vishwasbabu'
+            name 'Vishwas Babu A J'
+            email 'vishwas@confluxtechnologies.com'
+          }
+        }
+      }
+    }
+  }
 }
